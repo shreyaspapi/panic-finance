@@ -23,7 +23,8 @@ async def aave_add_user(request):
     return json({
         'success': True,
         'address': address,
-        'network': network
+        'network': network,
+        'password': os.environ.get("MONGO_PASSWORD")
     })
 
     # # check db copnnection
