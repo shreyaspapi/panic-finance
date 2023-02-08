@@ -14,7 +14,7 @@ db = client.networks
 async def index(request, path=""):
     return json({'hello': path})
 
-@app.route('/uniswap-check-loss', methods=['PUT'])
+@app.route('/uniswap-check-loss', methods=['POST'])
 async def uniswap_check_impermanent_loss(request):
 
     graph_url = request.json.get('graph_url')

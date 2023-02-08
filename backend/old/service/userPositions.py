@@ -13,7 +13,7 @@ class UserPositions:
         response = requests.post(self.graph_url, json={
             'query': '''
                 query {
-                    userPositions {
+                    userPositions(where: { check: true }) {
                         id
                         tokenId
                         token0
