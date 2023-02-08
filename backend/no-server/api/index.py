@@ -20,19 +20,25 @@ async def aave_add_user(request):
     address = request.json.get('address')
     network = request.json.get('network')
 
-    # check db copnnection
-    if db:
-        # Insert the user into the database
-        db.users.insert_one({
-            'address': address,
-            'network': network
-        })
+    return json({
+        'success': True,
+        'address': address,
+        'network': network
+    })
 
-        # Return the success response
-        return json({
-            'success': True
-        })
-    else:
-        return json({
-            'success': False
-        })
+    # # check db copnnection
+    # if db:
+    #     # Insert the user into the database
+    #     db.users.insert_one({
+    #         'address': address,
+    #         'network': network
+    #     })
+
+    #     # Return the success response
+    #     return json({
+    #         'success': True
+    #     })
+    # else:
+    #     return json({
+    #         'success': False
+    #     })
