@@ -20,26 +20,19 @@ async def aave_add_user(request):
     address = request.json.get('address')
     network = request.json.get('network')
 
-    return json({
-        'success': True,
-        'address': address,
-        'network': network,
-        'password': os.environ.get("MONGO_PASSWORD")
-    })
+    # check db copnnection
+    if db:
+        # Insert the user into the database
+        db.users.insert_one({
+            'address': address,
+            'network': network
+        })
 
-    # # check db copnnection
-    # if db:
-    #     # Insert the user into the database
-    #     db.users.insert_one({
-    #         'address': address,
-    #         'network': network
-    #     })
-
-    #     # Return the success response
-    #     return json({
-    #         'success': True
-    #     })
-    # else:
-    #     return json({
-    #         'success': False
-    #     })
+        # Return the success response
+        return json({
+            'success': True
+        })
+    else:
+        return json({
+            'success': False
+        })
