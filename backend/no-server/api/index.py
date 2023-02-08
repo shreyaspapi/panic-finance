@@ -21,9 +21,9 @@ async def aave_add_user(request):
     network = request.json.get('network')
 
     # check db copnnection
-    if db:
+    if db is not None:
         # Insert the user into the database
-        db.users.insert_one({
+        db.networks.insert_one({
             'address': address,
             'network': network
         })
