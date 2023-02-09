@@ -2,3 +2,4 @@ Flask==2.2.2
 sanic==19.6.0
 python-dotenv==0.14.0
 pymongo==4.3.3
+web3==5.24.0
