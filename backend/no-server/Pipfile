@@ -7,7 +7,6 @@ name = "pypi"
 flask = "*"
 sanic = "*"
 python-dotenv = "*"
-uniswap-python = "*"
 
 [requires]
 python_version = "3.9"

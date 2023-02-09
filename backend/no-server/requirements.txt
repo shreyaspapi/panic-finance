@@ -1,4 +1,5 @@
 Flask==2.2.2
 sanic==22.12.0
 python-dotenv>=0.9.1
-uniswap-python==0.6.2
+pymongo>=3.4.0
+web3==5.31.3
