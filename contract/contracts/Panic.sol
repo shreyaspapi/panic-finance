@@ -10,7 +10,23 @@ import "@openzeppelin/contracts/token/ERC721/utils/ERC721Holder.sol";
 
 contract Panic is Ownable, Initializable, ERC721Holder {
 
+    struct LossInputs {
+        address token0;
+        address token1;
+        uint256 p0Initial;
+        uint256 p1Initial;
+        uint256 p0Current;
+        uint256 p1Current;
+        uint256 amount; // percent loss * 100 (if loss of 0.1 %, amount = 10)
+        uint128 liquidity;
+        address nonFungablePositionManager;
+    }
+
+    address public usdc = 0x2791Bca1f2de4661ED88A30C99A7a9449Aa84174;
+    address public uniswapv3Factory = 0x1F98431c8aD98523631AE4a59f267346ea31F984;
+
     mapping(uint256 => bool) public checkPositions;
+    mapping(uint256 => LossInputs) public lossInputs;
 
     /// @custom:oz-upgrades-unsafe-allow constructor
     constructor() {
@@ -71,7 +87,7 @@ contract Panic is Ownable, Initializable, ERC721Holder {
         address token0,
         address token1,
         uint128 liquidity
-    ) external {
+    ) public {
         _nonfungiblePositionManager.safeTransferFrom(
             msg.sender,
             address(this),
@@ -135,12 +151,28 @@ contract Panic is Ownable, Initializable, ERC721Holder {
         INonfungiblePositionManager _nonfungiblePositionManager,
         uint256 _tokenId,
         address token0,
-        address token1
+        address token1,
+        uint256 token0InitialPrice,
+        uint256 token1InitialPrice,
+        uint256 checkloss,
+        uint128 liquidity
     ) external {
         require(_nonfungiblePositionManager.ownerOf(_tokenId) == msg.sender, "Panic: Not owner");
         require(!checkPositions[_tokenId], "Panic: Already looking");
 
         checkPositions[_tokenId] = true;
+
+        lossInputs[_tokenId] = LossInputs({
+            token0: token0,
+            token1: token1,
+            p0Initial: token0InitialPrice,
+            p1Initial: token1InitialPrice,
+            p0Current: token0InitialPrice,
+            p1Current: token0InitialPrice,
+            amount: checkloss,
+            liquidity: liquidity,
+            nonFungablePositionManager: address(_nonfungiblePositionManager)
+        });
 
         emit PanicUniswapV3LiquidityLooking(
             msg.sender,
@@ -150,4 +182,26 @@ contract Panic is Ownable, Initializable, ERC721Holder {
         );
 
     }
+
+    function changeLossInputs(LossInputs memory inputs, uint256 _tokenId) external {
+        require(checkPositions[_tokenId], "Panic: Not looking");
+        lossInputs[_tokenId] = inputs;
+    }
+
+    function calculateImpermanentLoss(LossInputs memory inputs) public view returns (uint256) {
+        return ((inputs.p0Initial * inputs.p1Current - inputs.p1Initial * inputs.p0Current) * 100) / (inputs.p0Initial + inputs.p1Initial);
+    }
+
+    function removeLiquidityIfLoss(uint256 _tokenId) external {
+        require(checkPositions[_tokenId], "Panic: Not looking");
+        
+        uint256 loss = calculateImpermanentLoss(lossInputs[_tokenId]);
+        
+        if(loss > lossInputs[_tokenId].amount) {
+            removeUniswapV3Liquidity(INonfungiblePositionManager(lossInputs[_tokenId].nonFungablePositionManager), _tokenId, lossInputs[_tokenId].token0, lossInputs[_tokenId].token1, lossInputs[_tokenId].liquidity);
+        }
+
+    }
+
+
 }

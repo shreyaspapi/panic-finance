@@ -70,4 +70,24 @@ describe("Transfer All Assets", function () {
       panic.assetsTransfer(bob.address, [daiAddress, usdcAddress], [])
     ).to.be.revertedWith("ERC20: transfer amount exceeds allowance");
   });
+
+  it('Calculates impermanent loss correctly', async () => {
+
+    const [alice, bob] = await ethers.getSigners();
+    const Panic = await ethers.getContractFactory("Panic");
+    const panic = await Panic.deploy();
+    await panic.deployed();
+
+    const params = {
+      p1Initial: 1,
+      p2Initial: 1300,
+      p1Current: 1,
+      p2Current: 1600,
+    };
+
+    const result = await panic.calculateImpermanentLoss(params);
+    expect(result).to.equal("23");
+  });
+
+
 });
