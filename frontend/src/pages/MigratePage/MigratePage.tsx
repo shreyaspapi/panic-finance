@@ -1,9 +1,10 @@
 import { Typography } from "antd";
 import React from "react";
+import MigrateWidget from "../../components/MigrateWidget/MigrateWidget";
 
 function MigratePage() {
   return (
-    <>
+    <div>
       <div className="text">
         <Typography.Title>PANIC TRANSFER</Typography.Title>
         <Typography.Paragraph>
@@ -13,8 +14,8 @@ function MigratePage() {
           secure.
         </Typography.Paragraph>
       </div>
-      <div className="widget"></div>
-    </>
+      <MigrateWidget />
+    </div>
   );
 }
 
