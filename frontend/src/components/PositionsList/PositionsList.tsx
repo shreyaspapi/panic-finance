@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Button, Divider, List, Typography, Avatar, Tag, Badge } from "antd";
-import PositionsModal from "../PositionsModal/PositionsModal";
+import PositionModal from "../PositionsModal/PositionsModal";
 import {
   mockDataFromUniswap,
   mockPositionsFromPanicSubgraph,
@@ -12,7 +12,7 @@ import {
   getPositionsDataFromUniswap,
 } from "../../utils/dataUtils";
 import { getPositionDataFromPanicGraphQuery } from "../../utils/queries";
-
+import { useAccount, useConnect, useDisconnect, useContractWrite } from 'wagmi'
 const { Text } = Typography;
 
 function PositionsList() {
@@ -23,12 +23,24 @@ function PositionsList() {
   const [positionsFromPanicSubgraph, setPositionsFromPanicSubgraph] = useState(
     mockPositionsFromPanicSubgraph.data.userPositions
   );
+  const [selectedTokenId, setSelectedTokenId] = useState("0xdummyaddress")
+
+  const { address } = useAccount()
 
   useEffect(() => {
-    const data = getPositionsDataFromUniswap();
-    getPositionsDataFromPanicGraph();
-    // data1.then((res) => console.log(res));
-    data.then((res) => console.log(res));
+    const uniswapData = getPositionsDataFromUniswap(address?.toString() ?? "");
+    const panicData = getPositionsDataFromPanicGraph();
+
+    uniswapData.then((res) => {
+      console.log("UNISWAP", res)
+      setPositionsFromUniswap(res.positions);
+    });
+
+    panicData.then((res) => {
+      console.log("PANIC", res)
+      setPositionsFromPanicSubgraph(res.userPositions);
+    });
+
   }, []);
 
   useEffect(() => {
@@ -52,9 +64,10 @@ function PositionsList() {
   //   );
   // }, []);
 
-  function onPositionClick() {}
+  function onPositionClick() { }
 
-  const showModal = () => {
+  const showModal = (tokenId: string) => {
+    setSelectedTokenId(tokenId)
     setIsModalOpen(true);
   };
 
@@ -84,11 +97,13 @@ function PositionsList() {
           />
         )}
       />
-      <PositionsModal
+      <PositionModal
         isModalOpen={isModalOpen}
-        showModal={showModal}
         handleOk={handleOk}
         handleCancel={handleCancel}
+        selectedTokenId={selectedTokenId}
+        positionsFromPanic={positionsFromPanicSubgraph}
+        positionsFromUniswap={positionsFromUniswap}
       />
     </>
   );

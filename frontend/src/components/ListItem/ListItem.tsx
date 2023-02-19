@@ -1,11 +1,11 @@
 import React from "react";
-import { Typography, List, Avatar, Tag, Badge } from "antd";
+import { Typography, List, Avatar, Tag, Badge, Button } from "antd";
 import Title from "antd/es/typography/Title";
 import { Position, PositionFromSubgraph } from "../../utils/types";
 const { Text } = Typography;
 
 type Props = {
-  showModal: () => void;
+  showModal: (tokenId: string) => void;
   positionItem: Position;
   positionsFromPanicSubgraph: PositionFromSubgraph[];
 };
@@ -36,7 +36,7 @@ function ListItem({
 
   return (
     <List.Item
-      onClick={showModal}
+      onClick={() => showModal(positionItem.id)}
       style={{
         cursor: "pointer",
       }}
@@ -83,6 +83,7 @@ function ListItem({
             style={{ minWidth: "10em", textAlign: "right" }}
           />
         )}
+        <Button>Edit</Button>
       </>
     </List.Item>
   );

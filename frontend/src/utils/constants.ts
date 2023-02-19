@@ -1,5 +1,6 @@
-export const UNISWAP_SUBGRAPH_URL = "https://thegraph.com/hosted-service/subgraph/liqwiz/uniswap-v3-goerli";
-export const PANIC_SUBGRAPH_URL = "https://thegraph.com/hosted-service/subgraph/shreyaspapi/panic-finance";
+export const UNISWAP_SUBGRAPH_URL = "https://api.thegraph.com/subgraphs/name/liqwiz/uniswap-v3-goerli";
+export const PANIC_SUBGRAPH_URL = "https://api.thegraph.com/subgraphs/name/shreyaspapi/panic-finance";
+export const PANIC_CONTRACT_ADDRESS = "0x416ab84c00D4435c6a0c0ef9A170c65c7A5326e2";
 
 export const mockDataFromUniswap = {
   data: {

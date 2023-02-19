@@ -1,5 +1,5 @@
 export const getPositionDataFromUniswapQuery = `query {
-  positions(where: {owner: "0x94f1ba9b10F6BBB14585296b6E54170c21Acfc2A"}) {
+  positions(where: {owner: "REPLACE_ADDRESS"}) {
     id
     owner
     pool {
@@ -18,7 +18,7 @@ export const getPositionDataFromUniswapQuery = `query {
 }`;
 
 export const getPositionDataFromPanicGraphQuery = `query {
-  userPositions(first: 5) {
+  userPositions(first: 100) {
     id
     tokenId
     token0

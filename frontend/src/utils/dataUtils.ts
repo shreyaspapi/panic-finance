@@ -1,5 +1,3 @@
-// Create a function to fetch data from subgraph endpoint using axios using the query given in queries.ts
-
 import axios from "axios";
 import {
   getPositionDataFromUniswapQuery,
@@ -8,40 +6,24 @@ import {
 
 import { UNISWAP_SUBGRAPH_URL, PANIC_SUBGRAPH_URL } from "./constants";
 
-export const getPositionsDataFromUniswap = async () => {
-  // const response = await axios.post(UNISWAP_SUBGRAPH_URL, {
-  //     headers: {
-  //         "Content-Type": "application/json",
-  //     },
-  //     body: JSON.stringify({
-  //         query: getPositionDataFromUniswapQuery,
-  //     }),
-  // })
+export const getPositionsDataFromUniswap = async (address: string) => {
 
-  const response = await axios({
-    method: "post",
-    url: UNISWAP_SUBGRAPH_URL,
-    data: {
-      query: getPositionDataFromUniswapQuery,
-    },
+
+
+  const result = await fetch(UNISWAP_SUBGRAPH_URL, {
+    method: "POST",
     headers: {
       "Content-Type": "application/json",
-      "Access-Control-Allow-Origin": "*",
     },
-  });
+    body: JSON.stringify({
+      query: getPositionDataFromUniswapQuery.replace("REPLACE_ADDRESS", address),
+    }),
+  }).then((res) => res.json());
 
-  return response.data;
+  return result.data;
 };
 
 export const getPositionsDataFromPanicGraph = async () => {
-  //   const response = await axios.post(PANIC_SUBGRAPH_URL, {
-  //     Headers: {
-  //         "Content-Type": "application/json",
-  //     },
-  //     body: JSON.stringify({
-  //         query: getPositionDataFromPanicGraphQuery,
-  //     })
-  //   });
 
   const result = await fetch(PANIC_SUBGRAPH_URL, {
     method: "POST",
@@ -53,6 +35,5 @@ export const getPositionsDataFromPanicGraph = async () => {
     }),
   }).then((res) => res.json());
 
-  console.log(result);
-
+  return result.data;
 };
