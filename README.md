@@ -1,24 +1,20 @@
 # Paanic Finance
 
-Welcome to Paanic Finance! This is an automated system for managing Uniswap liquidity positions based on the percentage of impermanent loss incurred.
+Welcome to Paanic Finance! This is a risk management platform for managing your funds in the optimal way by minimising impermanent loss.
 
 ## Features
 
 - Automated liquidity management: Paanic Finance uses smart contracts to continuously monitor and adjust liquidity positions on Uniswap to minimize impermanent loss.
 - Customizable thresholds: Set your own threshold for when to add or remove liquidity, based on your desired level of risk.
-- Easy to use: Paanic Finance is designed to be simple and easy to use, with a friendly user interface and clear instructions.
-Getting started
+- Afraid that your private key might be compromised? Fret not! Paanic finance is hear to save you. Just enter the new wallet address that you want to transfer all your assets to, and we will do it in a jiffy!
 
-To get started with Paanic Finance, you will need the following:
-
-- A Web3 wallet such as MetaMask, configured with some Ethereum and the tokens you want to use for liquidity.
-- The Paanic Finance smart contract deployed on the Ethereum network.
+To get started with Paanic Finance, you only need a Web3 wallet such as MetaMask, configured with some Ethereum and the tokens you want to use for liquidity.
 
 Once you have these, you can follow these steps to start using Paanic Finance:
 
-1. Connect your Web3 wallet to the Paanic Finance smart contract.
-2. Set your desired thresholds for adding and removing liquidity.
-3. Add liquidity to Uniswap using the Paanic Finance interface.
+1. Add liquidity to Uniswap using the Uniswap interface.
+2. Connect your Web3 wallet on the Paanic Finance application.
+3. Set your desired thresholds for adding and removing liquidity.
 4. Paanic Finance will continuously monitor your liquidity position and make adjustments as needed to minimize impermanent loss.
 
 ## Contribute
