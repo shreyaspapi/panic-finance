@@ -16,6 +16,8 @@ import { alchemyProvider } from "wagmi/providers/alchemy";
 import { publicProvider } from "wagmi/providers/public";
 import { mainnet, polygon } from 'wagmi/chains';
 
+import Streams from './_streams';
+
 
 const { chains, provider } = configureChains(
     [mainnet, polygon],
@@ -52,10 +54,10 @@ function App() {
                     <div style={{ display: 'flex', flexDirection: 'column', height: '100vh' }}>
                         <Header darkMode={darkMode} setDarkMode={setDarkMode} />
                         <div style={{ display: 'flex', flexGrow: 1 }}>
-                            <Sidebar onPageChange={handlePageChange} selectedPage={selectedPage} /> {/* pass page change handler and selected page state */}
-                            <main style={{ flexGrow: 1, marginTop: '64px' }}>
+                            <Sidebar onPageChange={handlePageChange} selectedPage={selectedPage} setSelectedPage={setSelectedPage} />
+                            <main style={{ flexGrow: 1, marginTop: '64px', maxWidth: '82vw', maxHeight: '80vh' }}>
                                 {selectedPage === 'liquidity' && <p>Liquidity page content goes here</p>}
-                                {selectedPage === 'streams' && <p>Streams page content goes here</p>}
+                                {selectedPage === 'streams' && <Streams />}
                                 {selectedPage === 'settings' && <p>Settings page content goes here</p>}
                             </main>
                         </div>

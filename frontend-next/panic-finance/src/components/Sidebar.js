@@ -25,18 +25,17 @@ const StyledToolbar = styled('div')(({ theme }) => ({
   ...theme.mixins.toolbar,
 }));
 
-const Sidebar = () => {
-  const [selectedPage, setSelectedPage] = useState('liquidity');
+const Sidebar = ({selectedPage, setSelectedPage}) => {
 
   const handleItemClick = (page) => {
     setSelectedPage(page);
   };
 
   return (
-    <Box sx={{ zIndex: 1 }}>
+    <Box sx={{ zIndex: 1}}>
       <StyledDrawer variant="permanent" anchor="left">
       <StyledToolbar />
-      <List>
+      <List sx={{pt: 5}}>
         <ListItemButton onClick={() => handleItemClick('liquidity')} selected={selectedPage === 'liquidity'}>
           <ListItemIcon>
             <LiquidityIcon />
