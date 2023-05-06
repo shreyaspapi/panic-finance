@@ -61,7 +61,7 @@ function MyApp({ Component, pageProps }: AppProps) {
               <Component {...pageProps} />
             </Box>
           </Box>
-          <Component {...pageProps} />
+          {/* <Component {...pageProps} /> */}
         </RainbowKitProvider>
       </WagmiConfig>
     </ThemeProvider>

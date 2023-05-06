@@ -40,7 +40,7 @@ const Sidebar: React.FC<SidebarProps> = ({ isDarkTheme, toggleTheme }) => {
                 <Logo />
             </Box>
             <Box sx={{ p: 2, alignItems: 'center', justifyContent: 'center', marginTop: 1, display: 'flex', flexDirection: 'column' }}>
-                <Button startIcon={<CompareArrows />} onClick={() => handleClick('/')} size='large' sx={{ width: 220, borderRadius: 3, height: 48, m: 1 }} variant={isCurrentRoute("/streams") ? 'contained' : 'text'}>
+                <Button startIcon={<CompareArrows />} onClick={() => handleClick('/streams')} size='large' sx={{ width: 220, borderRadius: 3, height: 48, m: 1 }} variant={isCurrentRoute("/streams") ? 'contained' : 'text'}>
                     Streams
                 </Button>
                 <Button startIcon={<WaterDrop />} onClick={() => handleClick('/lp')} size='large' sx={{ width: 220, borderRadius: 3, height: 48, m: 1 }} variant={isCurrentRoute("/lp") ? 'contained' : 'text'}>

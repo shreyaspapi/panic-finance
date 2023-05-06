@@ -7,7 +7,7 @@ const Home: NextPage = () => {
   return (
     <div className={styles.container}>
       <Head>
-        <title>RainbowKit App</title>
+        <title>Panic Finance</title>
         <meta
           content=""
           name=""
