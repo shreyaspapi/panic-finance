@@ -35,6 +35,12 @@ const StreamPage: React.FC = () => {
                         <GrainIcon sx={{ mr: 0.5 }} fontSize="inherit" />
                         Streams
                     </Typography>
+                    <Typography
+                        sx={{ display: 'flex', alignItems: 'center' }}
+                        color="text.primary"
+                    >
+                        1
+                    </Typography>
                 </Breadcrumbs>
                 <Typography variant="h3" component="h3" mt={4} mb={2}>
                     Stream Details
